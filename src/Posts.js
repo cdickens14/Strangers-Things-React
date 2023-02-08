@@ -25,11 +25,11 @@ const [posts, setPosts] = useState([]);
         posts.map((post) => {
                 return (
                     <React.Fragment>
-                        <div>{post.title}</div>
-                        <div>{post.location}</div>
-                        <div>{post.author.username}</div>
-                        <div>{post.price}</div>
-                        <div>{post.description}</div>
+                        <div id="title">{post.title}</div>
+                        <div id="location">{post.location}</div>
+                        <div id="username">{post.author.username}</div>
+                        <div id="price">{post.price}</div>
+                        <div id="description">{post.description}</div>
                     </React.Fragment>
 
             )

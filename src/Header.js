@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 
 const Header = () => {
     const [username, setUsername] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [password, setPassword] = useState('');
+    const [displayLogin, setDisplayLogin] = useState(true);
 
-    const handleChange = (event) => {
+    const handleUsername = (event) => {
         event.preventDefault();
         return setUsername(event.target.value);
+    }
+
+    const handlePassword = (event) => {
+        event.preventDefault();
+        return setPassword(event.target.value);
     }
     
     return (
@@ -15,12 +21,22 @@ const Header = () => {
                 <h1>Welcome to Stranger's Things</h1>
             </header>
             <form>
-                <input type="text" placeholder="Username" onChange={handleChange}></input>
-                <input type="text" placeholder="Password" onChange={handleChange}></input>
+                <input required type="text" placeholder="Username" onChange={handleUsername}></input>
+                <input required type="text" placeholder="Password" onChange={handlePassword}></input>
             </form>
-            <button onClick ={() => setIsLoggedIn(true)}>Login</button>
-            <button>Register</button>
-
+            {
+                displayLogin ?
+                <React.Fragment>
+                     <button>Login</button>
+                     <button onClick ={() => setDisplayLogin(false)}>Not a User Yet? Register Here!</button>
+                </React.Fragment> : 
+                <React.Fragment>
+                    <input required type="text" placeholder="Confirm Password" onChange={handlePassword}></input>
+                    <button>Register</button>
+                </React.Fragment>
+                
+            }
+                 
         </React.Fragment>
     )
 }
