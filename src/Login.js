@@ -4,16 +4,20 @@ const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
     }
 
-    const logIn = async (username, password) => {
+    const logIn = async () => {
         //const url = 'https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am/users/register';
-        const response = await fetch('https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am/users/register', {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json',
+                //'Authorization': 'Bearer {token}'
             },
             body: JSON.stringify({
                 user: {
@@ -21,13 +25,15 @@ const Login = (props) => {
                     password: {password}
                 }
             })
-        }) .then(response => response.json())
-        .then(result => {
+        }) 
+            const result = await response.json();
             console.log(result);
-        })
-        .catch(console.error);
-        setIsLoggedIn(true);
-        window.localStorage.setItem('token');
+        } catch(error) {
+            (console.error)
+          }
+        props.setIsLoggedIn(true);
+        window.localStorage.setItem('token', 'abcde');
+        
     }
     return (
         <React.Fragment>
@@ -47,7 +53,7 @@ const Login = (props) => {
                     onChange={(event) => setPassword(event.target.value)}>
                 </input>
             </form>
-            <button type="submit">Login</button>
+            <button onClick={logIn} type="submit">Login</button>
             <button onClick={() => props.onFormSubmit('register')}>Don't Have an Account? Register Here!</button>
         </React.Fragment>
     )

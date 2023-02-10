@@ -8,6 +8,7 @@ import Register from './Register.js';
 
 const App = () => {
     const [currentForm, setCurrentForm] = useState('login');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const toggleForm = (formName) => {
         setCurrentForm(formName);
@@ -17,7 +18,11 @@ const App = () => {
         <React.Fragment>
             <Header />
             {
-                currentForm === 'login' ? <Login onFormSubmit={toggleForm}/> : <Register onFormSubmit={toggleForm}/>
+                currentForm === 'login' ? <Login onFormSubmit={toggleForm} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> : <Register onFormSubmit={toggleForm}/>
+            }
+            {
+                isLoggedIn === true ? 
+                 <button>Logout</button> : null
             }
             <Posts />
         </React.Fragment>
