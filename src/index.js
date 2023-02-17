@@ -5,6 +5,9 @@ import Posts from './Posts.js';
 import Header from './Header.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import CreatePost from './CreatePost.js';
+import Messages from './Messages.js';
+import SearchForm from './SearchForm.js';
 
 const App = () => {
     const [currentForm, setCurrentForm] = useState('login');
@@ -14,18 +17,32 @@ const App = () => {
         setCurrentForm(formName);
     }
 
+    const logOut = (token) => {
+        setIsLoggedIn(false);
+        window.localStorage.removeItem('token', `${token}`);
+    }
+
     return (
         <React.Fragment>
             <Header />
             {
-                currentForm === 'login' ? <Login onFormSubmit={toggleForm} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> : <Register onFormSubmit={toggleForm}/>
+                currentForm === 'login' ? <Login onFormSubmit={toggleForm} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> : <Register onFormSubmit={toggleForm} setIsLoggedIn={setIsLoggedIn}/>
             }
             {
-                isLoggedIn === true ? 
-                 <button>Logout</button> : null
+                isLoggedIn === true ?
+                <CreatePost /> : null
             }
-            <Posts />
-        </React.Fragment>
+            
+            <SearchForm />
+            <Posts isLoggedIn={isLoggedIn}/>  
+            
+            {
+                isLoggedIn === true ?
+                <button onClick={() => logOut()}>Logout</button> : null
+            }
+        
+            
+        </React.Fragment> 
     )
 }
 
