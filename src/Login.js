@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = (props) => {
     const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ const Login = (props) => {
         event.preventDefault();
     }
 
-    const logIn = (token) => {
+    const logIn = () => {
                 fetch('https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am/users/login', {
                 method: 'POST',
                 headers: {
@@ -54,6 +55,10 @@ const Login = (props) => {
             {
                 props.isLoggedIn === false ?
             <button onClick={() => props.onFormSubmit('register')}>Don't Have an Account? Register Here!</button> : null
+            }
+            {
+                props.isLoggedIn === true ?
+                <Link to='/user'>Go To My Profile</Link> : null
             }
         
             

@@ -8,7 +8,7 @@ const Register = (props) => {
         event.preventDefault();
     }
 
-    const registerUser = () => {
+    const registerUser = (token) => {
         fetch('https://strangers-things.herokuapp.com/api/2211-ftb-et-web-am/users/register', {
                 method: 'POST',
                 headers: {
@@ -25,7 +25,7 @@ const Register = (props) => {
                 console.log(result);
             })
             .catch(console.error);
-            window.localStorage.setItem('token', 'token');
+            window.localStorage.setItem('token', `${token}`);
     }
     return (
         <React.Fragment>

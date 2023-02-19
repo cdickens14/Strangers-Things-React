@@ -3,8 +3,8 @@ body {
 }
 
 div {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 850px;
 
 }
 
@@ -16,4 +16,12 @@ div {
 #price {
     font-size: 30px;
     color: purple;
+}
+
+input {
+    margin: 5px;
+}
+
+h1 {
+    border-bottom: dotted black 2px;
 }

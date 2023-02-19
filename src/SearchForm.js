@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 
-const SearchForm = () => {
-    const [posts, setPosts] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+const SearchForm = (props) => {
+    const [data, setData] = useState('');
 
-    const postMatches = (post, text) => {
-
+    const filterSearch = () => {
+        props.posts.filter(post => {
+            if (data === ''){
+                return post;
+            } else if (post.title.toLowerCase().includes(data.toLowerCase())){
+                return post;
+            }
+        })
     }
-
-    const filteredPosts = posts.filter(post => postMatches(post, searchTerm));
-    const postsToDisplay = searchTerm.length ? filteredPosts : posts;
-
+    
     return (
-        <input type="text" placeholder="Search"></input>
+        <React.Fragment>
+            <input type="text" placeholder="What are you looking for?" value={data} onChange={(event) =>setData(event.target.value)}></input>
+            <button onClick={() => filterSearch()}>Search</button>
+            <ul>
+                {props.posts.map((post) => {
+                    <li>{post.title}</li>
+                })}
+            </ul>
+        </React.Fragment>
+        
     )
 
 }
